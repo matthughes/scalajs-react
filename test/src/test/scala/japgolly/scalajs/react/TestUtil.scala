@@ -9,7 +9,7 @@ import utest._
 object TestUtil {
 
   def assertRender(comp: ReactComponentU_, expected: String): Unit = {
-    val rendered: String = React.renderComponentToStaticMarkup(comp)
+    val rendered: String = React.renderToStaticMarkup(comp)
     assert(rendered == expected)
   }
 
@@ -27,7 +27,7 @@ object TestUtil {
   def run1[A](C: ReactComponentC.ReqProps[AtomicReference[Option[A]], _, _, _])
              (f: AtomicReference[Option[A]] => ReactComponentU[AtomicReference[Option[A]], _, _, _]): A = {
     val a = new AtomicReference[Option[A]](None)
-    React renderComponentToStaticMarkup f(a)
+    React renderToStaticMarkup f(a)
     a.get().get
   }
 
@@ -44,7 +44,7 @@ object TestUtil {
   def runN[A](C: ReactComponentC.ReqProps[ListBuffer[A], _, _, _])
              (f: ListBuffer[A] => ReactComponentU[ListBuffer[A], _, _, _]): List[A] = {
     val l = new ListBuffer[A]
-    React renderComponentToStaticMarkup f(l)
+    React renderToStaticMarkup f(l)
     l.result()
   }
 

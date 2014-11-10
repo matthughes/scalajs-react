@@ -25,7 +25,7 @@ object ReactExamples extends js.JSApp {
       .render(name => div("Hello ", name))
       .build
 
-    React.renderComponent(HelloMessage("John"), mountNode)
+    React.render(HelloMessage("John"), mountNode)
   }
 
   // ===================================================================================================================
@@ -50,7 +50,7 @@ object ReactExamples extends js.JSApp {
       .componentWillUnmount(_.backend.interval foreach window.clearInterval)
       .buildU
 
-    React.renderComponent(Timer(), mountNode)
+    React.render(Timer(), mountNode)
   }
 
   // ===================================================================================================================
@@ -90,7 +90,7 @@ object ReactExamples extends js.JSApp {
         )
       ).buildU
 
-    React.renderComponent(TodoApp(), mountNode)
+    React.render(TodoApp(), mountNode)
   }
 
   // ===================================================================================================================
@@ -117,6 +117,6 @@ object ReactExamples extends js.JSApp {
         )
       ).buildU
 
-    React.renderComponent(App(), mountNode)
+    React.render(App(), mountNode)
   }
 }

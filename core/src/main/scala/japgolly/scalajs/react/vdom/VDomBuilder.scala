@@ -38,8 +38,16 @@ private[vdom] final class VDomBuilder {
 
   @inline private[this] def hasStyle = js.Object.keys(style).length != 0
 
+
   def render(tag: String) = {
     if (hasStyle) set(props, "style", style)
+
+    // Following reacts convention of built-in DOM is lower-case
+    // components are upper case (title case I believe)
+    // if (tag.head.isLower)
     React.DOM.applyDynamic(tag)(vdomArgs: _*).asInstanceOf[ReactOutput]
+    // not working
+    // else 
+    // React.createElement(tag, null, vdomArgs: _*).asInstanceOf[ReactOutput]
   }
 }

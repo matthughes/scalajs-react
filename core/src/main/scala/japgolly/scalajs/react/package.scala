@@ -111,8 +111,8 @@ package object react {
   }
 
   implicit final class ReactExt(val u: React.type) extends AnyVal {
-    @inline def renderComponentC[P, S, B, N <: TopNode](c: ReactComponentU[P,S,B,N], n: dom.Node)(callback: ComponentScopeMN[P,S,B,N] => Unit) =
-      u.renderComponent(c, n, callback)
+    @inline def renderC[P, S, B, N <: TopNode](c: ReactComponentU[P,S,B,N], n: dom.Node)(callback: ComponentScopeMN[P,S,B,N] => Unit) =
+      u.render(c, n, callback)
   }
 
   implicit final class ComponentScope_P_Ext[Props](val u: ComponentScope_P[Props]) extends AnyVal {
@@ -133,7 +133,7 @@ package object react {
   val stopPropagationF = (_: SyntheticEvent[dom.Node]).stopPropagation()
 
   implicit final class ReactComponentUExt[P,S,B,N <: TopNode](val u: ReactComponentU[P,S,B,N]) extends AnyVal {
-    def render(n: dom.Node) = React.renderComponent(u, n)
+    def render(n: dom.Node) = React.render(u, n)
   }
 
   implicit final class UndefReactComponentM_Ext[N <: TopNode](val u: UndefOr[ReactComponentM_[N]]) extends AnyVal {

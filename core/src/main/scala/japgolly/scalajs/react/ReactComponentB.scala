@@ -158,7 +158,7 @@ final class ReactComponentB[P, S, B](val name: String,
     }
 
     def build: C =
-      cc(React.createClass(buildSpec))
+      cc(React.createFactory(React.createClass(buildSpec)))
 
     @deprecated("As the B in ReactComponentB is for Builder, create() has been renamed to build() and will be removed in 0.7.0.", "0.5.0")
     def create = build

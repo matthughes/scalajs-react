@@ -15,17 +15,42 @@ object React extends Object {
    */
   def createClass[P,S,B,N <: TopNode](spec: ComponentSpec[P,S,B,N]): ReactComponentCU[P,S,B,N] = ???
 
+  /** Creates a partially applied `createElement` function with the type preset. */
+  def createFactory[P,S,B,N <: TopNode](c: ReactComponentCU[P,S,B,N]): ReactComponentCU[P,S,B,N] = ???
+
+  /** Creates an element to be rendered. */
+  def createElement[Props](tagname: String, props: WrapObj[Props], children: VDom*): Dynamic = ???
+
+  /** Creates an element to be rendered. */
+  def createElement[P,S,B,N <: TopNode](c: ReactComponentCU[P,S,B,N], props: WrapObj[P], children: VDom*): Dynamic = ???
+
+  def render(c: ReactComponentU_, n: dom.Node)
+    : ReactComponentM_[TopNode] = ???
+
+  @deprecated("Use render", "0.12.0")
   def renderComponent(c: ReactComponentU_, n: dom.Node)
+    : ReactComponentM_[TopNode] = render(c, n)
+
+  def render(c: ReactComponentU_, n: dom.Node, callback: ThisFunction)
     : ReactComponentM_[TopNode] = ???
 
+  @deprecated("Use render", "0.12.0")
   def renderComponent(c: ReactComponentU_, n: dom.Node, callback: ThisFunction)
-    : ReactComponentM_[TopNode] = ???
+    : ReactComponentM_[TopNode] = render(c, n, callback)
 
+  def render[P,S,B,N <: TopNode](c: ReactComponentU[P,S,B,N], n: dom.Node)
+    : ReactComponentM[P,S,B,N] = ???
+
+  @deprecated("Use render", "0.12.0")
   def renderComponent[P,S,B,N <: TopNode](c: ReactComponentU[P,S,B,N], n: dom.Node)
-    : ReactComponentM[P,S,B,N] = ???
+    : ReactComponentM[P,S,B,N] = render(c, n)
 
-  def renderComponent[P,S,B,N <: TopNode](c: ReactComponentU[P,S,B,N], n: dom.Node, callback: ThisFunction0[ReactComponentM[P,S,B,N], Unit])
+  def render[P,S,B,N <: TopNode](c: ReactComponentU[P,S,B,N], n: dom.Node, callback: ThisFunction0[ReactComponentM[P,S,B,N], Unit])
     : ReactComponentM[P,S,B,N] = ???
+  
+  @deprecated("Use render", "0.12.0")
+  def renderComponent[P,S,B,N <: TopNode](c: ReactComponentU[P,S,B,N], n: dom.Node, callback: ThisFunction0[ReactComponentM[P,S,B,N], Unit])
+    : ReactComponentM[P,S,B,N] = render(c, n, callback)
 
   /** Configure React's event system to handle touch events on mobile devices. */
   def initializeTouchEvents(shouldUseTouch: Boolean): Unit = ???
@@ -37,9 +62,15 @@ object React extends Object {
    */
   def unmountComponentAtNode(container: dom.Node): Boolean = ???
 
-  def renderComponentToString(component: ReactComponentU_): String = ???
+  def renderToString(component: ReactComponentU_): String = ???
+ 
+  @deprecated("Use renderToString", "0.12.0") 
+  def renderComponentToString(component: ReactComponentU_): String = renderToString(component)
 
-  def renderComponentToStaticMarkup(component: ReactComponentU_): String = ???
+  def renderToStaticMarkup(component: ReactComponentU_): String = ???
+  
+  @deprecated("Use renderToStaticMarkup", "0.12.0") 
+  def renderComponentToStaticMarkup(component: ReactComponentU_): String = renderToStaticMarkup(component)
 
   def DOM: Dynamic = ???
   def addons: Dynamic = ???
@@ -53,7 +84,7 @@ trait ReactChildren extends Object {
   def map(c: PropsChildren, fn: js.Function2[VDom, Number, JAny]): UndefOr[Object] = ???
   def forEach(c: PropsChildren, fn: js.Function1[VDom, JAny]): Unit = ???
   def forEach(c: PropsChildren, fn: js.Function2[VDom, Number, JAny]): Unit = ???
-  /** WARNING: Throws an exception is exact number of children is not 1. */
+  /** WARNING: Throws an exception if exact number of children is not 1. */
   def only(c: PropsChildren): VDom = ???
   def count(c: PropsChildren): Number = ???
 }
