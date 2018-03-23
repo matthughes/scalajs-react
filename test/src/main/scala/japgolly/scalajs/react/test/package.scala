@@ -1,20 +1,19 @@
 package japgolly.scalajs.react
 
-import scala.scalajs.js.{Object, UndefOr}
-
 package object test {
 
-  final type ComponentClass = ReactComponentC_
-  final type ComponentM = ReactComponentM_[TopNode]
+  val Simulate = japgolly.scalajs.react.test.raw.ReactTestUtils.Simulate
 
-  @inline final implicit def RTUSChangeEventData  (d: ChangeEventData  ): Object = d.toJs
-  @inline final implicit def RTUSKeyboardEventData(d: KeyboardEventData): Object = d.toJs
-  @inline final implicit def RTUSMouseEventData   (d: MouseEventData   ): Object = d.toJs
+  type ReactOrDomNode = japgolly.scalajs.react.test.raw.ReactOrDomNode
 
-  @inline final implicit def autoUnboxRefsInTests[T <: TopNode](r: UndefOr[ReactComponentM_[T]]) = r.get
-  @inline final implicit def autoUnboxRefsInTestsC[T <: TopNode](r: UndefOr[ReactComponentM_[T]]): ComponentOrNode = r.get
+  implicit def reactOrDomNodeFromMounted(m: GenericComponent.MountedRaw): ReactOrDomNode =
+    ReactDOM.findDOMNode(m.raw).get.rawDomNode
 
-//  implicit final class RTUSimulateExt(val u: Simulate) extends AnyVal {
-//    def change(t: ComponentOrNode, newValue: String) = u.change(t, ChangeEventData(value = newValue))
-//  }
+  implicit def reactOrDomNodeFromVRE(m: vdom.VdomElement): ReactOrDomNode =
+    m.rawElement
+
+  implicit final class ReactTestExt_MountedId(private val c: GenericComponent.MountedImpure[_, _]) extends AnyVal {
+    def outerHtmlScrubbed(): String =
+      c.getDOMNode.fold(_.textContent, e => ReactTestUtils.removeReactInternals(e.outerHTML))
+  }
 }
